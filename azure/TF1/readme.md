@@ -112,7 +112,7 @@ When Terraform is executed, it scans all the files and then creates a resource g
 
 As mentioned, a Web App needs to be connected to an Service Plan. This implies that the Service Plan needs to be created beforehand. But even if we see in the code that the Web App appears before the Service Plan, when the script is executed, they will be created or destroyed in the right order.
 
-In main.1.tf we see the proper way to use interpolation instead of hardoding values. This allows us to have a central place to make configuration changes without having to crawl over multiple files and make the changes in each of them.
+In main.1.tf we see the proper way to use interpolation instead of hardcoding values. This allows us to have a central place to make configuration changes without having to crawl over multiple files and make the changes in each of them.
 
 ```terraform
 # Provision a Service Plan to host the Web App
