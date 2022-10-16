@@ -1,4 +1,4 @@
-# TF0
+# TF1
 
 This is a simple terraform script with a purpose of creating a Resource Group, a Web App and a Service Plan.
 
