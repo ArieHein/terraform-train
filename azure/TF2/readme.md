@@ -1,4 +1,4 @@
-# TF1
+# TF2
 
 This is an example of how to use variables and create multiple resource of the same type.
 
