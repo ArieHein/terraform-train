@@ -39,11 +39,11 @@ resource "azurerm_resource_group" "rg" {
 
 # Provision a Key Vault
 resource "azurerm_key_vault" "kv" {
-  name                      = "${var.resource_prefix}-kv"
-  location                  = azurerm_resource_group.rg.location
-  resource_group_name       = azurerm_resource_group.rg.name
-  tenant_id                 = data.azurerm_client_config.current.tenant_id
-  sku_name                  = "standard"
+  name                = "${var.resource_prefix}-kv"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  tenant_id           = data.azurerm_client_config.current.tenant_id
+  sku_name            = "standard"
 
   access_policy {
     tenant_id = data.azurerm_client_config.current.tenant_id
@@ -163,16 +163,16 @@ resource "azurerm_mssql_server" "mssql" {
 
 # Provision a managed SQL Database
 resource "azurerm_mssql_database" "db" {
-  name                = "${var.resource_prefix}-sqldb"
-  server_id           = azurerm_mssql_server.mssql.id
-  sku_name            = var.db_sql_sku
-  max_size_gb         = var.db_sql_max_size
+  name        = "${var.resource_prefix}-sqldb"
+  server_id   = azurerm_mssql_server.mssql.id
+  sku_name    = var.db_sql_sku
+  max_size_gb = var.db_sql_max_size
 }
 
 # Add a SQL Firewall Rule to Allow Azure Services access
 resource "azurerm_mssql_firewall_rule" "mssqlfwrule" {
-  name                = "AllowAzureServices"
-  server_id           = azurerm_mssql_server.mssql.id
-  start_ip_address    = "0.0.0.0"
-  end_ip_address      = "0.0.0.0"
+  name             = "AllowAzureServices"
+  server_id        = azurerm_mssql_server.mssql.id
+  start_ip_address = "0.0.0.0"
+  end_ip_address   = "0.0.0.0"
 }
