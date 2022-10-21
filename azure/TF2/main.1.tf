@@ -32,5 +32,5 @@ variable "resource_group_location" {
 variable "resource_group_names" {
   description = "The Names of all Resource Groups"
   type        = list(string)
-  default     = ["RG1","RG2","RG3"]
+  default     = ["RG1", "RG2", "RG3"]
 }
