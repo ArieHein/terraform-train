@@ -119,11 +119,11 @@ resource "azurerm_key_vault_secret" "apppassword" {
 
 # Provision a Service Plan to host the Web App
 resource "azurerm_service_plan" "plan" {
-    name                = "${var.resource_prefix}-plan"
-    location            = azurerm_resource_group.rg.location
-    resource_group_name = azurerm_resource_group.rg.name
-    kind                = "Windows"
-    sku_name            = var.plan_sku_name
+  name                = "${var.resource_prefix}-plan"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  kind                = "Windows"
+  sku_name            = var.plan_sku_name
 }
 
 # Provision a Windows Web App to host our code
@@ -134,12 +134,12 @@ resource "azurerm_windows_web_app" "webapp" {
   service_plan_id     = azurerm_service_plan.plan.id
 
   site_config {
-      always_on = true
+    always_on = true
   }
 
   app_settings = {
-      "SqlConnectionString" = "Server=tcp:${azurerm_sql_server.mssql.fully_qualified_domain_name},1433;Initial Catalog=${azurerm_sql_database.mssqldb.name};Persist Security Info=False;User ID=${random_string.appuser.result};Password=${random_password.apppassword.result};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
-      "InstrumentationKey"  = azurerm_application_insights.ais.id
+    "SqlConnectionString" = "Server=tcp:${azurerm_sql_server.mssql.fully_qualified_domain_name},1433;Initial Catalog=${azurerm_sql_database.mssqldb.name};Persist Security Info=False;User ID=${random_string.appuser.result};Password=${random_password.apppassword.result};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+    "InstrumentationKey"  = azurerm_application_insights.ais.id
   }
 }
 
@@ -157,7 +157,7 @@ resource "azurerm_mssql_server" "mssql" {
   location                     = azurerm_resource_group.rg.location
   resource_group_name          = azurerm_resource_group.rg.name
   version                      = "12.0"
-  administrator_login          = random_string.sqladminuser.result 
+  administrator_login          = random_string.sqladminuser.result
   administrator_login_password = random_password.sqladminpassword.result
 }
 

@@ -3,7 +3,7 @@ variable "resource_prefix" {
   type        = string
 
   validation {
-    condition = length(var.resource_prefix) > 3 && length(var.resource_prefix) <= 7
+    condition     = length(var.resource_prefix) > 3 && length(var.resource_prefix) <= 7
     error_message = "The length of the Resource Prefix needs to be between 3 and 7 characters long"
   }
 }
