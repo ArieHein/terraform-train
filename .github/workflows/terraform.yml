@@ -17,9 +17,34 @@ jobs:
         shell: bash
 
     steps:
+    # Az Login
+    - name: Azure Login
+      uses: Azure/login@v1.4.6
+      with:
+        creds: ${{ secrets.BH_CLIENT_SECRET }}
+        client-id: ${{ secrets.BH_CLIENT_ID }}
+        tenant-id: ${{ secrets.BH_TENANT_ID }}
+        subscription-id: ${{ secrets.BH_SUBSCRIPTION_ID }}
+
+    # Create storage account for state file
+    - name: Azure CLI Action
+      uses: Azure/cli@v1.0.7
+      with:
+        inlineScript: |
+          az group create --name terraform-rg --location northeu -tags Project=TFTrain
+          az storage account create --name tfstorage --resource-group terraform-rg --location northeu --sku Standard_LRS --encryption-services blob --allow-blob-public-access false --tags CreatedBy=GitHub
+          $ACCOUNT_KEY = $(az storage account keys list --resource-group terraform-rg --account-name tfstorage --query [0].value -o tsv)
+          az storage container create --account-key $ACCOUNT_KEY --account-name tfstorage --name tfcontainer 
+
+    # Install Terraform CLI
+    - name: HashiCorp - Setup Terraform
+      uses: hashicorp/setup-terraform@v2.0.3
+      with:
+        terraform_version: 1.3.2
+
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v3.1.0
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
