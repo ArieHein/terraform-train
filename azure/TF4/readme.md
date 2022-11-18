@@ -1,5 +1,7 @@
 # TF4
 
+***Note: If you try to run terraform in this folder, it will error out as terraform will try to run both *.tf files. Rename one of the files or remove it to avoid errors***
+
 ## Overview
 
 This is a more complex and modular project structure.

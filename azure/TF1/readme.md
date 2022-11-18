@@ -1,5 +1,9 @@
 # TF1
 
+***Note: If you try to run terraform in this folder, it will error out as terraform will try to run both *.tf files. Rename one of the files or remove it to avoid errors***
+
+## Overview
+
 This is a simple terraform script with a purpose of creating a Resource Group, a Web App and a Service Plan.
 
 All values are hardcoded. In later examples we will use variables.

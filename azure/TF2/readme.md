@@ -1,5 +1,9 @@
 # TF2
 
+***Note: If you try to run terraform in this folder, it will error out as terraform will try to run both *.tf files. Rename one of the files or remove it to avoid errors***
+
+## Overview
+
 This is an example of how to use variables and create multiple resource of the same type.
 
 We start with a simple structure that repeats itself 3 times to create 3 resource groups.
