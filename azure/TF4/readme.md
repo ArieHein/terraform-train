@@ -62,7 +62,7 @@ name     = "${var.project_prefix}-${var.project_location_prefix}-${var.environme
 For the dev environment, terraform will evaluate this to be:
 
 ```terraform
-tftrain-eun-dev
+tftrain-eun-dev-rg
 ```
 
 And last we see a usage of one of Terraform's built-in string functions called **Merge** which takes the 2 values and adds them together to one object, which we are using for the **Tags**. We can see that we are referring to both local variables and then merging the values into one object used for the Resource Group tags.
