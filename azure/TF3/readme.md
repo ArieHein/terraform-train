@@ -44,7 +44,7 @@ For more information about how to use Azure for a backend, view: <https://www.te
 
 When you run the *terraform plan* command, one of the actions will be to look for the backend details, connect to the storage account and create the file, if it is not yet there. When you run *terraform plan*, *apply* or *destroy*, it will always read the script and compare the desired state from the current state and write all the information back into the state file.
 
-When you start to work in a team, you do not want to use a local state file as it makes it harder to manage as it also requires proper handling and backup. Majority of the Cloud providers will use a storage type resource, in Azure it would be Azure Storage Account, in AWS it will be a S3 Bucket etc. Hashicorp, offers its Terraform Cloud SaaS solution to store state files as well.
+When you start to work in a team, you do not want to use a local state file as it makes it harder to share as it also requires proper handling and backup. Majority of the Cloud providers will use a storage type resource, in Azure it would be Azure Storage Account, in AWS it will be a S3 Bucket etc. Hashicorp, offers its Terraform Cloud SaaS solution to store state files as well.
 
 **Note:** The identity used to connect and authenticate to Azure, needs to have access to the Resource Group, Storage Account and related resources to be able to access the storage account and read or write content to these files.***
 This is also the first time we see a usage of the **Data** keyword. Data Sources is a way for Terraform to query the Cloud Provider for resource properties. Terraform is using this ability internally when you run the terraform commands to understand the current state.
