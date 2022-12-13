@@ -9,6 +9,6 @@ resource "azurerm_service_plan" "plan" {
   resource_group_name = var.plan_resource_group
   os_name             = var.plan_os_name
   sku_name            = var.plan_sku_name
-  worker_count        = var.plan_worker_count 
+  worker_count        = var.plan_worker_count
   tags                = var.plan_tags
 }
