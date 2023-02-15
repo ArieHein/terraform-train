@@ -6,16 +6,16 @@
 
 This is a more complex and modular project structure.
 We see for the first time the usage of modules and environment separation.
-Good for team of any size / small-medium organizations.
+Good for teams of any size / small-medium organizations.
 Good for all environments, medium to large scale.
 We start seeing some separation of concerns, quite easy to manage changes.
 Early design for Organization scope.
 
 ## General
 
-This chapter is split into two parts. Part one will discuss the concept of **Terraform Modules**, and the second will discuss a logical layer of abstraction that I refer to as **Components** or **Stacks**. This is not a Terraform concept but as the power of modules becomes more understandable, we will try and scale it up to organization levels together with the next chapter.
+This chapter is split into two parts. Part one will discuss the concept of Terraform **Modules**, and the second will discuss a logical layer of abstraction that I refer to as **Components** or **Stacks**. This is not a Terraform concept but as the power of modules becomes more understandable, we will try and scale it up to organization levels together with the following chapter.
 
-The most immediate visible change is that all parts of a terraform script have now been split into their own files, thus separating content that is unlikely to ever change and content that changes more frequently. Since Terraform scans all files in the folder upon execution, we can have as many terraform files as we want, in whatever directory structure, thus allowing us to design our folder structure and implement some **separation of concerns** where different teams are responsible for different resources or modules.
+The most immediate visible change is that all parts of a terraform script have now been split into their own files, thus separating content that is unlikely to ever change and content that changes more frequently. Since Terraform scans all files in the folder upon execution, we can have as many terraform files as we want, in whatever directory structure, allowing us to design our folder structure and implement some **separation of concerns** where different teams are responsible for different resources or modules.
 
 In the root of the project, we see a file called **project.tfvars**. This file holds global variable values that we want to use throughout the execution of the terraform script, no matter for what environment. In it we find variables like the **Project Name** that we will use in tags, **Project Location** that we will use to create the resources so they are all in the same region, and some prefixes that will allow us to create resource names that are more unique.
 
@@ -53,9 +53,9 @@ db_sql_sku      = "S0"
 db_sql_max_size = "4"
 ```
 
-As we have seen in past chapters, all variables used need to be declared and thus we can see all these variables appear in **variables.tf** at the root of the project.
+As we have seen in past chapters, all variables used need to be declared and thus we can see all these variables are declared in **variables.tf** at the root of the project.
 
-Back to our main file, we see in the Resource Group provisioning, that this time we are using the environment prefix in the resource naming, and we are also adding the location prefix to add to the overall uniqueness of the resource name.
+Back to our main file, we see in the Resource Group provisioning, that this time we are using the environment prefix in the resource naming, and we are also adding the location prefix to, adding to the overall uniqueness of the resource name.
 
 ```terraform
 name     = "${var.project_prefix}-${var.project_location_prefix}-${var.environment_prefix}-rg"
@@ -75,7 +75,7 @@ tags     = merge(local.resource_group_tags, local.resource_tags)
 
 And this now, is the main start of this chapter - **Terraform  Modules**. These are the equivalent of functions / templates / libraries in other programming languages. It allows us to create an infrastructure construct that then can be called multiple times, with the ability to sometimes change some of its configurations. It creates a consistent way of creating resources and promotes the idea of Don’t-Repeat-Yourself (DRY).
 
-We can see that a module is first declared by using the **Module** keyword. In the Module block, we have variables that are then assigned a specific value. These are the equivalents of function parameters, that are then used inside the module. Remember that interpolation creates a dependency that will be forced upon execution.
+We can see that a module is first declared by using the **Module** keyword. In the Module block, we have variables that are then assigned a specific value. These are the equivalents of function's parameters, that are then used inside the module. Remember that interpolation creates a dependency that will be forced upon execution.
 
 The most important part of a module declaration is the **source** property. This tells Terraform where to get the module definition from. In our case we point it to specific relative folder path. Terraform Modules also support additional types of sources.
 
