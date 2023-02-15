@@ -15,7 +15,7 @@ This chapter creates a more complex environment that consists of:
 
 ## General
 
-At the top of the script, under the **required_providers**, we call for the **Random** provider created by HashiCorp at the latest version available when writing. This provider is a string/value generator that allows adding some randomness to achieve overall uniqueness. We can use it in resource naming, or to generate passwords that are based on a cryptographic engine.
+At the top of the script, under the **required_providers**, we call for the **Random** provider created by HashiCorp at the latest available version at the time of writing. This provider is a string-value generator that allows adding some randomness to achieve overall uniqueness. We can use it in resource naming, or to generate passwords that are based on a cryptographic engine.
 
 ```terraform
     random = {
@@ -42,12 +42,12 @@ In the **readme.md** file at the root of the Azure folder, there is a section ab
 
 For more information about how to use Azure for a backend, view: <https://www.terraform.io/language/settings/backends/azurerm>
 
-When you run the *terraform plan* command, one of the actions will be to look for the backend details, connect to the storage account and create the file, if it is not yet there. When you run *terraform plan*, *apply* or *destroy*, it will always read the script and compare the desired state from the current state and write all the information back into the state file.
+When you run the *terraform plan* command, one of the actions will be to look for the backend details, connect to the storage account and create the file, if it is not yet there. When you run *terraform plan*, *apply*, or *destroy*, it will always read the script and compare the desired state from the current state and write all the information back into the state file.
 
-When you start to work in a team, you do not want to use a local state file as it makes it harder to share as it also requires proper handling and backup. Majority of the Cloud providers will use a storage type resource, in Azure it would be Azure Storage Account, in AWS it will be a S3 Bucket etc. Hashicorp, offers its Terraform Cloud SaaS solution to store state files as well.
+When you start to work in a team, you do not want to use a local state file as it makes it harder to share as it also requires proper handling and backup. Majority of the Cloud providers will use a storage-type resource, in Azure it would be Azure Storage Account, in AWS it will be a S3 bucket etc. Hashicorp, offers its Terraform Cloud SaaS solution to store state files as well.
 
 **Note:** The identity used to connect and authenticate to Azure, needs to have access to the Resource Group, Storage Account and related resources to be able to access the storage account and read or write content to these files.***
-This is also the first time we see a usage of the **Data** keyword. Data Sources is a way for Terraform to query the Cloud Provider for resource properties. Terraform is using this ability internally when you run the terraform commands to understand the current state.
+This is also the first time we see a usage of the **Data** keyword. Data sources is a way for Terraform to query the Cloud Provider for resource properties. Terraform is using this ability internally when you run the terraform commands to understand the current state.
 
 For more information about Data structures, view: <https://www.terraform.io/language/data-sources>
 
@@ -59,7 +59,7 @@ data "azurerm_client_config" "current" {
 }
 ```
 
-The next sections will include all of our Azure resource declarations. First, we start with our Resource Group but note a new concept we have not seen yet, **string concatenation**. If we look at the **name** property of the **Resource Group**, we see a call to the **resource_prefix** variable but we also see that we added a suffix to the field name **-rg**. When doing string concatenation, you need to encase it all with double quotes, the variable in squiggly bracers and adding a **$** character in front to denote that this is a variable.
+The next sections will include all of our Azure resource declarations. First, we start with our Resource Group but note a new concept we have not seen yet, **String concatenation**. If we look at the **name** property of the **Resource Group**, we see a call to the **resource_prefix** variable but we also see that we added a suffix to the field name **-rg**. When doing string concatenation, you need to encase it all with double quotes, the variable in squiggly bracers and adding a **$** character in front to denote that this is a variable.
 
 ```terraform
   name     = "${var.resource_prefix}-rg"
@@ -67,7 +67,7 @@ The next sections will include all of our Azure resource declarations. First, we
 
 This will be a similar occurrence in all resource names, to create a naming convention that is consistent. Some resource types require uniqueness across the Resource Group, some across the Subscription and some across entire Azure, especially if the resource has a URL for access.
 
-The next section is creating a **KeyVault**. This is a secure storage to hold, keys, secrets and certificates. As part of the resource creation, we also set the access policy that allows the same identity that connected and authenticated, access to reading and writing secrets.
+The next section is creating a **Key Vault**. This is a secure storage to hold, keys, secrets and certificates. As part of the resource creation, we also set the access policy that allows the same identity that connected and authenticated, access to reading and writing secrets.
 This is also displaying the usage of data from **azurerm_client_config** to get connection information to then give the permission to access the secrets.
 
 ```terraform
@@ -77,7 +77,7 @@ This is also displaying the usage of data from **azurerm_client_config** to get 
 
 For more information about KeyVault, view: <https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault>
 
-In next section we are going to use the second provider - **Random** that was declared at the top of the script to create **random_string** and **random_password** resources. We are going to create a user and password to be used as the SQL Server admin, and create a second user and password to be used by the application connection string.
+In next section we are going to use the second provider - **Random** - that was declared at the top of the script to create **random_string** and **random_password** resources. We are going to create a user and password to be used as the SQL Server administrator, and create a second user and password to be used by the application connection string.
 
 For more information about the Random provider and its resources, view: <https://registry.terraform.io/providers/hashicorp/random/latest/docs>
 
