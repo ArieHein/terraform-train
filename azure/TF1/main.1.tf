@@ -17,7 +17,7 @@ provider "azurerm" {
   features {}
 }
 
-# Provision a Windows Web App to host our code
+# Provision a Web App to host our code
 resource "azurerm_windows_web_app" "webapp" {
   name                = "MyAppSrv"
   location            = azurerm_resource_group.rg.location
@@ -27,7 +27,7 @@ resource "azurerm_windows_web_app" "webapp" {
   site_config {}
 }
 
-# Provision a Service Plan to host the Web App
+# Provision a Windows Service Plan to host the Web App
 resource "azurerm_service_plan" "plan" {
   name                = "MyAppSrvPlan"
   location            = azurerm_resource_group.rg.location
