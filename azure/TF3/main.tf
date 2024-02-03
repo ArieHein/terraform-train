@@ -67,14 +67,14 @@ resource "random_string" "sqladminuser" {
   length = 8
   upper  = true
   lower  = true
-  number = true
+  numeric = true
 }
 
 resource "random_password" "sqladminpassword" {
   length = 16
   upper  = true
   lower  = true
-  number = true
+  numeric = true
 }
 
 # Create Random values for the SQL Server Application Access
@@ -82,14 +82,14 @@ resource "random_string" "appuser" {
   length = 8
   upper  = true
   lower  = true
-  number = true
+  numeric = true
 }
 
 resource "random_password" "apppassword" {
   length = 16
   upper  = true
   lower  = true
-  number = true
+  numeric = true
 }
 
 # Store the User and Password values as Secrets in the Key Vault
@@ -122,7 +122,7 @@ resource "azurerm_service_plan" "plan" {
   name                = "${var.resource_prefix}-plan"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-  kind                = "Windows"
+  os_type             = "Windows"
   sku_name            = var.plan_sku_name
 }
 
