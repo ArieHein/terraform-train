@@ -18,16 +18,16 @@ We also use this section to declare the required providers, source and versions 
 
 ```terraform
 terraform {
-  required_version = "1.3.3"
+  required_version = "1.7.2"
 
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "=3.28.0"
+      version = "=3.90.0"
     }
     random = {
       source  = "hashicorp/random"
-      version = "=3.4.3"
+      version = "=3.6.0"
     }
   }
 }
@@ -50,7 +50,7 @@ All resources created in a **Subscription**, must be created inside one **Resour
 Each Resource Group requires a unique Name, within the Subscription, and a Location.
 
 ```terraform
-# Provision a Resoure Group
+# Provision a Resource Group
 resource "azurerm_resource_group" "rg" {
   name     = "MyRG"
   location = "North Europe"
@@ -114,7 +114,7 @@ Interpolation is the main reason you can declare resources anywhere in the scrip
 
 When Terraform is executed, it scans all the files and then creates a resource graph based on the providers, interpolations and usage of **depends_on** to decide how to run the requests in the right order and also to remove the resources if needed. For additional information, view: <https://www.terraform.io/internals/graph>
 
-As mentioned, a Web App needs to be connected to an Service Plan. This implies that the Service Plan needs to be created beforehand. But even if we see in the code that the Web App appears before the Service Plan, when the script is executed, they will be created or destroyed in the right order.
+As mentioned, a Web App needs to be connected to a Service Plan. This implies that the Service Plan needs to be created beforehand. But even if we see in the code that the Web App appears before the Service Plan, when the script is executed, they will be created or destroyed in the right order.
 
 In main.1.tf we see the proper way to use interpolation instead of hardcoding values. This allows us to have a central place to make configuration changes without having to crawl over multiple files and make the changes in each of them.
 
@@ -135,4 +135,4 @@ resource "azurerm_resource_group" "rg" {
 }
 ```
 
-We can see that instead of the original values for location and resource_group_name, we are using the interpolated version - resource name - **azurerm_resource_group**, than the instance name - **rg** and the property names -**name** and **location**.
+We can see that instead of the original values for location and resource_group_name, we are using the interpolated version - resource name - **azurerm_resource_group**, then the instance name - **rg** and the property names -**name** and **location**.
