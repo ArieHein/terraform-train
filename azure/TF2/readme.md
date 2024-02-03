@@ -60,4 +60,4 @@ resource "azurerm_resource_group" "rg" {
 }
 ```
 
-The result will be 3 resource groups created, each with a different value for the resource group name.
+The result will be 3 resource groups being created, each with a different value for the resource group name.
