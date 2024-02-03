@@ -179,4 +179,4 @@ For more information about how to supply variables values or files during execut
 
 ## Azure Connection
 
-In this chapter, you will also find **tf.ps1**. This powershell script uses AZ CLI to create the initial resources needed for Terraform state file. This needs to run before you execute any Terraform scripts that use Azure as the backend for the state file.
+In this chapter, you will also find **tf.ps1**. This PowerShell script uses AZ CLI to create the initial resources needed for Terraform state file. This needs to run before you execute any Terraform scripts that use Azure as the backend for the state file.
