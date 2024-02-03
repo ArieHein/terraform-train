@@ -4,7 +4,7 @@
 
 ## Overview
 
-This is a simple terraform script with a purpose of creating a Resource Group, a Web App and a Service Plan.
+This is a simple Terraform script with a purpose of creating a Resource Group, a Web App and a Service Plan.
 
 All values are hardcoded. In later examples we will use variables.
 
@@ -12,7 +12,7 @@ The first section is a declaration of the version of Terraform engine that we re
 
 However, if you are using features that were implemented in a specific version and that version is not available on the machine, an error will be shown.
 
-***Tip! When running a Terraform script as part of a pipeline, make sure to first install the required Terraform CLI. Do not take for granted that the version of Terraform you need is indeed installed.***
+***Tip! When running a Terraform script as part of a pipeline, make sure to first check if the version is installed or install the required version of Terraform CLI. Do not take for granted that the version of Terraform you need is indeed installed.***
 
 We also use this section to declare the required providers, source and versions that are needed for this.
 
@@ -63,9 +63,9 @@ The syntax we see here consists of the keyword **resource**, the type of the res
 
 ## Service Plan
 
-Every **Web App** must be connected to an **Service Plan**. This configures the type of machine we want to run our App Service on in terms of resources, and based on that is the cost that will be attached to the resource.
+Every **Web App** must be connected to a **Service Plan**. This configures the type of machine we want to run our App Service on in terms of resources, and based on that is the cost that will be attached to the resource.
 
-A Service Plan requires a unique **Name** within the Subscription, a related **Resource Group** where to reside and a **Location**. It is a good practice to keep all resources in the same location as the Resource Group itself.
+A Service Plan requires a unique **Name** within the subscription, a related **Resource Group** where to reside and a **Location**. It is a good practice to keep all resources in the same location as the Resource Group itself.
 
 The mandatory parameters that need to be set, are the **os_type** of the machine we want to use, in this case a Windows machine, and a **sku_name** that will configure the resource performance like CPU, Memory, Disk Space and more. The different skus can be found on Azure Documentation and Pricing.
 
@@ -86,7 +86,7 @@ There are more optional parameters that can be set. For additional information, 
 
 ## Web App
 
-A Web App is the managed version of a web server.
+A Web App is a managed version of a web server.
 
 ```terraform
 # Provision a Windows Web App to host our code
@@ -102,7 +102,7 @@ resource "azurerm_windows_web_app" "webapp" {
 
 For additional information, view: <https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/app_service>
 
-This is the first time we see one of Terraforms' internal mechanics called **Interpolation**. This controls the flow of execution for resources that have a dependency on other resources. When a resource is created in Azure it is given a unique ID. The ID for the newly created Service Plan needs to be supplied to the Web App resource to make that connection. In some cases the ID property and the Name property are interchangeable.
+This is the first time we see one of Terraforms' internal mechanics called **Interpolation**. This controls the flow of execution for resources that have a dependency on other resources. When a resource is created in Azure it is given a unique ID. The ID for the newly created Service Plan needs to be supplied to the Web App resource to make that connection. In some cases, the ID property and the Name property are interchangeable.
 
 The interpolation syntax we see consists of the Resource name - **azurerm_service_plan**, the instance we declared - **plan** and the unique ID that is created - **id**.
 
