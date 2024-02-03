@@ -67,13 +67,13 @@ For the dev environment, terraform will evaluate this to be:
 tftrain-eun-dev-rg
 ```
 
-And last we see a usage of one of Terraform's built-in string functions called **Merge** which takes the 2 values and adds them together to one object, which we are using for the **Tags**. We can see that we are referring to both local variables and then merging the values into one object used for the Resource Group tags.
+And last, we see a usage of one of Terraform's built-in string functions called **Merge** which takes the 2 values and adds them together to one object, which we are using for the **Tags**. We can see that we are referring to both local variables and then merging the values into one object used for the Resource Group tags.
 
 ```terraform
 tags     = merge(local.resource_group_tags, local.resource_tags)
 ```
 
-And this now, is the main start of this chapter - **Terraform  Modules**. These are the equivalent of functions / templates / libraries in other programming languages. It allows us to create an infrastructure construct that then can be called multiple times, with the ability to sometimes change some of its configurations. It creates a consistent way of creating resources and promotes the idea of Don’t-Repeat-Yourself (DRY).
+And this now, is the main start of this chapter - **Terraform Modules**. These are the equivalent of functions / templates / libraries in other programming languages. It allows us to create an infrastructure construct that then can be called multiple times, with the ability to sometimes change some of its configurations. It creates a consistent way of creating resources and promotes the idea of Don’t-Repeat-Yourself (DRY).
 
 We can see that a module is first declared by using the **Module** keyword. In the Module block, we have variables that are then assigned a specific value. These are the equivalents of function's parameters, that are then used inside the module. Remember that interpolation creates a dependency that will be forced upon execution.
 
@@ -105,7 +105,7 @@ terraform {
 }
 ```
 
-As mentioned above, interpolation can also create a dependency to modules as well. An example can be see in the Web App module
+As mentioned above, interpolation can also create a dependency to modules as well. An example can be seen in the Web App module
 
 ```terraform
 module "web_app" {
@@ -148,7 +148,7 @@ As we have seen in previous chapters, we can execute Terraform, and pass it vari
 terraform plan --var-file ..\environments\dev.tfvars
 ```
 
-Thus, allowing us to use a different environment files on each execution. This is why it is so important that the structure of the environment files is consistent.
+Thus, allowing us to use a different environment file on each execution. This is why it is so important that the structure of the environment files is consistent.
 
 ## Summary
 
@@ -158,7 +158,7 @@ It is essential that you familiarize yourselves with Terraform Modules and how i
 
 One aspect that is slightly more advanced is stacks / components. As mentioned at the start, these are not Terraform concepts, rather a potential layer of abstraction we can create on top of what we learned earlier.
 
-Lets continue to main.1.tf. We can see immediately that it is shorter and slightly easier to understand.
+Let us continue to main.1.tf. We can see immediately that it is shorter and slightly easier to understand.
 We can see that instead of calling the specific modules we created, we call a component / stack that is located in the **components** folder. It is then calling the different resources that make the component.
 
 ```terraform
