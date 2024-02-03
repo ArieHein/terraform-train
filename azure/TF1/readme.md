@@ -128,7 +128,7 @@ resource "azurerm_service_plan" "plan" {
   sku_name            = "B1"
 }
 
-# Provision a Resoure Group
+# Provision a Resource Group
 resource "azurerm_resource_group" "rg" {
   name     = "MyRG"
   location = "North Europe"
