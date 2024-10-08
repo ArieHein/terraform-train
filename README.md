@@ -60,7 +60,7 @@ Big to Very Big projects
     az group create -l northeu -n terraform-rg
    ```
 
-- The returned message will be a json that includes the resource group id (the long descriptor that includes the subscription id), the location and under properties will hold the provisioingState - "Succeeded" when it did.
+- The returned message will be a json that includes the resource group id (the long descriptor that includes the subscription id), the location and under properties will hold the provisioningState - "Succeeded" when it did.
 
 - We create a service principle for the pipelines and allow it contributor role for the resource group using the resource group id
 
@@ -178,9 +178,9 @@ Look at the links section and read more about the changes.
 ### Terraform Engine 1.2
 
 While variable validation existed since version 0.13, in the version 1.2 we now have a way to perform Pre and Post checks on our code
-Validation allows us to force a simple "policy" as to the content of variable values supplied and becomes highly important when working on a complex structure where modules might be created by a different team and potentially in a differernt repository all together.
+Validation allows us to force a simple "policy" as to the content of variable values supplied and becomes highly important when working on a complex structure where modules might be created by a different team and potentially in a different repository all together.
 
-In version 1.2 we can now force rules for resources, data sources and outputs. Precondition checks can check values from other data sources for example and should be used to check an assumption. Postconditions checks can check values of resources after they were applied, for example making sure a storage account was created with no public access or a VM has been assigned a Public IP before additional resources will be applied that depend on it.
+In version 1.2 we can now force rules for resources, data sources and outputs. Precondition checks can check values from other data sources for example and should be used to check an assumption. Postcondition checks can check values of resources after they were applied, for example making sure a storage account was created with no public access or a VM has been assigned a Public IP before additional resources will be applied that depend on it.
 
 ### Microsoft Verified Modules
 
