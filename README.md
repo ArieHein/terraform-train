@@ -163,7 +163,7 @@ resource "azurerm_windows_web_app" "webapp" {
   name                = "${var.resource_prefix}-app"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-  app_service_plan_id = azurerm_app_service_plan.asp.id
+  service_plan_id     = azurerm_service_plan.asp.id
 
   site_config {
       always_on = true
