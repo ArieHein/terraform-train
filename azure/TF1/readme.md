@@ -1,6 +1,6 @@
 # TF1
 
-***Note: If you try to run terraform in this folder, it will error out as terraform will try to run both *.tf files. Rename one of the files or remove it to avoid errors***
+**Note:** If you try to run terraform in this folder, it will error out as terraform will try to run both *.tf files. Rename one of the files or remove it to avoid errors
 
 ## Overview
 
@@ -10,9 +10,9 @@ All values are hardcoded. In later examples we will use variables.
 
 The first section is a declaration of the version of Terraform engine that we require. This is not mandatory in this scenario. Terraform will use the version found on the machine, based on the PATH environment variable.
 
-However, if you are using features that were implemented in a specific version and that version is not available on the machine, an error will be shown.
+However, if you are using features that were implemented in a specific version and that version is not available on the machine where the code is executed, an error will be shown.
 
-***Tip! When running a Terraform script as part of a pipeline, make sure to first check if the version is installed or install the required version of Terraform CLI. Do not take for granted that the version of Terraform you need is indeed installed.***
+**Tip!** When running a Terraform script as part of a pipeline, make sure to first check if the version is installed or install the required version of Terraform CLI. Do not take for granted that the version of Terraform you need is indeed installed.
 
 We also use this section to declare the required providers, source and versions that are needed for this.
 
@@ -28,6 +28,8 @@ terraform {
   }
 }
 ```
+
+**Tip!** Its good practice to specify the version of the engine and providers (referred to as version pinning) to avoid breaking changes. There are multiple ways to indicate the level of compatibility you want to have. Further information can be found here: <https://developer.hashicorp.com/terraform/language/expressions/version-constraints>
 
 The second section is a declaration of each provider that will be used, with any initial feature settings if it is required. For instance, for the AzureRM provider, you **have** to specify the **features** declaration even if it is empty.
 
@@ -59,11 +61,11 @@ The syntax we see here consists of the keyword **resource**, the type of the res
 
 ## Service Plan
 
-Every **Web App** must be connected to a **Service Plan**. This configures the type of machine we want to run our App Service on in terms of resources, and based on that is the cost that will be attached to the resource.
+Every **Web App** must be connected to a **Service Plan**. This configures the type of machine we want to run our Web App on in terms of resources, and based on that is the cost that will be attached to the resource.
 
 A Service Plan requires a unique **Name** within the subscription, a related **Resource Group** where to reside and a **Location**. It is a good practice to keep all resources in the same location as the Resource Group itself.
 
-The mandatory parameters that need to be set, are the **os_type** of the machine we want to use, in this case a Windows machine, and a **sku_name** that will configure the resource performance like CPU, Memory, Disk Space and more. The different skus can be found on Azure Documentation and Pricing.
+The mandatory parameters that must to be set, are the **os_type** of the machine we want to use, in this case a Windows machine, and a **sku_name** that will configure the resource performance like CPU, Memory, Disk Space and more. The different sku can be found on Azure Documentation and Pricing.
 
 ```terraform
 # Provision a Service Plan to host the Web App
@@ -76,13 +78,13 @@ resource "azurerm_service_plan" "plan" {
 }
 ```
 
-***Note that the resource group name used for the service plan is the same name we created earlier in the resource group code.***
+**Note** that the resource group name used for the service plan is the same name we created earlier in the resource group code.
 
 There are more optional parameters that can be set. For additional information, view: <https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/service_plan>
 
 ## Web App
 
-A Web App is a managed version of a web server.
+A Web App is a managed version of a web site on a web server.
 
 ```terraform
 # Provision a Windows Web App to host our code
@@ -108,7 +110,7 @@ The interpolation syntax we see consists of the Resource name - **azurerm_servic
 
 Interpolation is the main reason you can declare resources anywhere in the script even if not in the order of creation. The Provider is where the brains is in terms of the order of execution to create and destroy resources.
 
-When Terraform is executed, it scans all the files and then creates a resource graph based on the providers, interpolations and usage of **depends_on** to decide how to run the requests in the right order and also to remove the resources if needed. For additional information, view: <https://www.terraform.io/internals/graph>
+When Terraform code is executed, it scans all the files and then creates a resource graph based on the providers, interpolations and usage of **depends_on** to decide how to run the requests in the right order and also to remove the resources if needed. For additional information, view: <https://developer.hashicorp.com/terraform/internals/graph>
 
 As mentioned, a Web App needs to be connected to a Service Plan. This implies that the Service Plan needs to be created beforehand. But even if we see in the code that the Web App appears before the Service Plan, when the script is executed, they will be created or destroyed in the right order.
 
