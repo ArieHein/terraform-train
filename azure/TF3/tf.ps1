@@ -1,9 +1,9 @@
 # Connect to your azure account using a user that has sufficient permission to create resources within
-# the subscription. A good practice is to create a Service Pricinple Name within the subscription,
+# the subscription. A good practice is to create a Service Principal Name within the subscription,
 # that is part of the Contributor role. You can then use its' details to also run AZ CLI commands
-# via CICD piplines for example.
+# via CICD pipelines for example.
 # 
-# You will need 4 parameters for loging in:
+# You will need 4 parameters for logging in:
 #
 # TenantID - This will be your Azure Active Directory (AAD) Tenant that is connected to your subscription.
 # ClientID - This will be the Service Principle (SPN) Client ID
