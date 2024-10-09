@@ -20,7 +20,7 @@ At the top of the script, under the **required_providers**, we call for the **Ra
 ```terraform
     random = {
       source  = "hashicorp/random"
-      version = "=3.4.3"
+      version = "=3.6.3"
     }
 ```
 
@@ -137,7 +137,7 @@ output "InstrumentationKey" {
 
 It is a good practice to create a **variables.tf** file in the same directory as the main script and inside Terraform modules. In it will be the declaration of all variables used in the script or module. As discussed in previous chapters, variable declarations, require at least a **type** and its good practice to add a **description** that will be displayed if there are no values supplied upon execution.
 
-In here we also see for the first time, another ability of Terraform and that is variable validation. You would want to use variable validation when you do not have full control over the values that are being used or supplied by others. Sometimes we might use variable values that might break some resource rules, for example: a storage account name, cannot have spaces of underscores. To make sure we do not accidently supply values that might break the execution, we can add variable validation.
+In here we also see for the first time, another ability of Terraform and that is variable validation. You would want to use variable validation when you do not have full control over the values that are being used or supplied by others. Sometimes we might use variable values that might break some resource rules, for example: a storage account name, cannot have spaces of underscores. To make sure we do not accidentally supply values that might break the execution, we can add variable validation.
 
 In our script, I have chosen to check the length of a variable, so that when it is being used in resource naming, it is not going to end up with a very long resource name.
 
