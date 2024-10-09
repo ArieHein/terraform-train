@@ -13,7 +13,7 @@
 # We will create a dedicated Resource Group, in it create a Storage Account. Then retrieve one
 # of the storage account access keys and use that to create a Storage Account Blob Container.
 # This only needs to be executed once. The values you select, need to be saved in the Backend
-# block of terraform, if you choose to execute the scripts manually. Please change the values
+# block of Terraform, if you choose to execute the scripts manually. Please change the values
 # used here as an example.
 
 # Create a Resource Group. Customize the tags for cost management.

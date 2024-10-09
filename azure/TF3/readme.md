@@ -46,7 +46,7 @@ When you start to work in a team, you do not want to use a local state file as i
 
 **Note:** The identity used to connect and authenticate to Azure, needs to have access to the Resource Group, Storage Account and related resources to be able to access the blob container and read or write content to these files.
 
-This is also the first time we see a usage of the **Data** keyword. Data sources is a way for Terraform to query the Cloud Provider for resource properties. Terraform is using this ability internally when you run the terraform commands to understand the current state.
+This is also the first time we see a usage of the **Data** keyword. Data sources is a way for Terraform to query the Cloud Provider for resource properties. Terraform is using this ability internally when you run the Terraform commands to understand the current state.
 
 For more information about Data structures, view: <https://developer.hashicorp.com/terraform/language/data-sources>
 
@@ -122,7 +122,7 @@ This interpolation creates a dependency as well where the **Web App** will not b
 
 ## Outputs
 
-This is the first time we showcase terraform outputs. This is an ability of Terraform to expose to the command line values that are sometimes only known after a resource was created. It is a good practice, to create a **outputs.tf** file in the same directory as the main script, especially when we deal with Terraform modules, in the next chapter. When *terraform plan*, *apply* or *destroy* commands are used, any outputs will be displayed in the terminal interface.
+This is the first time we showcase Terraform outputs. This is an ability of Terraform to expose to the command line values that are sometimes only known after a resource was created. It is a good practice, to create a **outputs.tf** file in the same directory as the main script, especially when we deal with Terraform modules, in the next chapter. When *terraform plan*, *apply* or *destroy* commands are used, any outputs will be displayed in the terminal interface.
 
 In this chapter, we want to expose out the Instrumentation Key that is created after the **Application Insights** resource is provisioned. To do that we use the **output** keyword, followed by the name of the key we want to be displayed, and the value of the key. In this case, using interpolation, we reference the **azurerm_application_insights** resource, the **ais** instance and the **instrumentation_key** resource output.
 
