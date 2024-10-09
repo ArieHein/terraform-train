@@ -24,7 +24,7 @@ At the top of the script, under the **required_providers**, we call for the **Ra
     }
 ```
 
-Next, we see for the first time the usage of the **Backend** block. This tells Terraform that instead of creating a state file locally, it should save it in a specific Blob Container - **container_name**, in a specific Storage Account - **storage_account_name**, in a specific Resource Group - **resource_group_name** and under a specific file name - **key**.
+Next, we see for the first time the usage of the **Backend** block. This tells Terraform that instead of creating a state file locally, it should save it in a specific Blob Container - **container_name**, in a specific Storage Account - **storage_account_name**, in a specific Resource Group - **resource_group_name** and under a specific file name - **key**. Since we are using the **azurerm** provider, we need to declare that in the backend block. These resources need to be created **PRIOR** to any other resource and it needs to be outside your official resource group and all of its resources. Extra security and diligence have to be applied in protecting these resources as they will hold the state of your infrastructure and potential sensitive information.
 
 ```terraform
 terraform {
@@ -38,18 +38,17 @@ terraform {
 }
 ```
 
-In the **readme.md** file at the root of the Azure folder, there is a section about how to create the necessary resources to host the terraform state file, via Azure CLI commands.
-
-For more information about how to use Azure for a backend, view: <https://www.terraform.io/language/settings/backends/azurerm>
+For more information about how to use Azure for a backend, view: <https://developer.hashicorp.com/terraform/language/backend/azurerm>
 
 When you run the *terraform plan* command, one of the actions will be to look for the backend details, connect to the storage account and create the file, if it is not yet there. When you run *terraform plan*, *apply*, or *destroy*, it will always read the script and compare the desired state from the current state and write all the information back into the state file.
 
-When you start to work in a team, you do not want to use a local state file as it makes it harder to share as it also requires proper handling and backup. Majority of the Cloud providers will use a storage-type resource, in Azure it would be Azure Storage Account, in AWS it will be a S3 bucket etc. Hashicorp, offers its Terraform Cloud SaaS solution to store state files as well.
+When you start to work in a team, you do not want to use a local state file as it makes it harder to share as it also requires proper handling and backup. Majority of the cloud providers will use a storage-type resource, in Azure it would be Azure Storage Account, in AWS it will be a S3 bucket etc. Hashicorp, offers its Terraform Cloud SaaS solution to store state files as well.
 
-**Note:** The identity used to connect and authenticate to Azure, needs to have access to the Resource Group, Storage Account and related resources to be able to access the storage account and read or write content to these files.***
+**Note:** The identity used to connect and authenticate to Azure, needs to have access to the Resource Group, Storage Account and related resources to be able to access the blob container and read or write content to these files.
+
 This is also the first time we see a usage of the **Data** keyword. Data sources is a way for Terraform to query the Cloud Provider for resource properties. Terraform is using this ability internally when you run the terraform commands to understand the current state.
 
-For more information about Data structures, view: <https://www.terraform.io/language/data-sources>
+For more information about Data structures, view: <https://developer.hashicorp.com/terraform/language/data-sources>
 
 In our example we are retrieving connection information that was used to connect and authenticate to the subscription. We will need some of the values later in the script via interpolation.
 
