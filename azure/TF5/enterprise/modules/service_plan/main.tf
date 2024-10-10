@@ -1,5 +1,5 @@
 terraform {
-  required_version = "=1.3.3"
+  required_version = "=1.9.7"
 }
 
 # Provision a Service Plan

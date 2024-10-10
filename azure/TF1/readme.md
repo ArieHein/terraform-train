@@ -18,7 +18,7 @@ We also use this section to declare the required providers, source and versions 
 
 ```terraform
 terraform {
-  required_version = "1.9.7"
+  required_version = "=1.9.7"
 
   required_providers {
     azurerm = {
