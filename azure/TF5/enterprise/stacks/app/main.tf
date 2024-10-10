@@ -5,6 +5,6 @@ module "plan" {
 }
 
 module "webapp" {
-    source = "git::https://example.com/enterprise.git//modules/service_plan"
+    source = "git::https://example.com/enterprise.git//modules/web_app"
 
 }
