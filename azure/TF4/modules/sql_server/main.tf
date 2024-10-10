@@ -17,14 +17,14 @@ resource "random_string" "sqladminuser" {
   length = 8
   upper  = true
   lower  = true
-  number = true
+  numeric = true
 }
 
 resource "random_password" "sqladminpassword" {
   length = 16
   upper  = true
   lower  = true
-  number = true
+  numeric = true
 }
 
 # Store the user and passwords values in KeyVault
