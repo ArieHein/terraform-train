@@ -13,7 +13,7 @@ module "sql_server" {
   sql_tags               = var.component_tags
 }
 
-module ""sql_database"" {
+module "sql_database" {
   source                = "../modules/sql_database"
   db_project_prefix     = var.component_project_prefix
   db_project_location   = var.component_project_location
