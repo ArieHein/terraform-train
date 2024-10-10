@@ -3,7 +3,7 @@ terraform {
 }
 
 module "web_app" {
-  source                  = "../../modules/web_app"
+  source                  = "../../../modules/web_app"
   app_project_prefix      = var.component_project_prefix
   app_project_location    = var.component_project_location
   app_environment_prefix  = var.component_environment_prefix
@@ -18,7 +18,7 @@ module "web_app" {
 }
 
 module "service_plan" {
-  source                  = "../../modules/service_plan"
+  source                  = "../../../modules/service_plan"
   plan_project_prefix     = var.component_project_prefix
   plan_project_location   = var.component_project_location
   plan_environment_prefix = var.component_environment_prefix
@@ -31,7 +31,7 @@ module "service_plan" {
 }
 
 module "application_insights" {
-  source                 = "../../modules/application_insights"
+  source                 = "../../../modules/application_insights"
   ais_project_prefix     = var.component_project_prefix
   ais_project_location   = var.component_project_location
   ais_environment_prefix = var.component_environment_prefix
