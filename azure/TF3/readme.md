@@ -24,7 +24,7 @@ At the top of the script, under the **required_providers**, we call for the **Ra
     }
 ```
 
-Next, we see for the first time the usage of the **Backend** block. This tells Terraform that instead of creating a state file locally, it should save it in a specific Blob Container - **container_name**, in a specific Storage Account - **storage_account_name**, in a specific Resource Group - **resource_group_name** and under a specific file name - **key**. Since we are using the **azurerm** provider, we need to declare that in the backend block. These resources need to be created **PRIOR** to any other resource and it needs to be outside your official resource group and all of its resources. Extra security and diligence have to be applied in protecting these resources as they will hold the state of your infrastructure and potential sensitive information.
+Next, we see for the first time the usage of the **backend** block. This tells Terraform that instead of creating a state file locally, it should save it in a specific Blob Container - **container_name**, in a specific Storage Account - **storage_account_name**, in a specific Resource Group - **resource_group_name** and using a  specific file name - **key**. Since we are using the **azurerm** provider, we need to declare that in the backend block. These resources need to be created **PRIOR** to any other resource and it needs to be outside your official resource group and all of its resources. Extra security and diligence have to be applied in protecting these resources as they will hold the state of your infrastructure and potential sensitive information.
 
 ```terraform
 terraform {
