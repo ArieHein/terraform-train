@@ -22,17 +22,17 @@ resource "azurerm_app_service" "webapp" {
 
 # Create Random user and passwords
 resource "random_string" "appuser" {
-  length = 8
-  upper  = true
-  lower  = true
-  number = true
+  length  = 8
+  upper   = true
+  lower   = true
+  numeric = true
 }
 
 resource "random_password" "apppassword" {
-  length = 16
-  upper  = true
-  lower  = true
-  number = true
+  length  = 16
+  upper   = true
+  lower   = true
+  numeric = true
 }
 
 # Store the user and passwords values in KeyVault
