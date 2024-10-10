@@ -23,7 +23,7 @@ variable "plan_resource_group" {
   type        = string
 }
 
-variable "plan_os_name" {
+variable "plan_os_type" {
   description = "The Service Plan OS Name"
   type        = string
 }
