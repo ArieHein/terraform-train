@@ -38,7 +38,7 @@ variable "app_sql_database_name" {
   type        = string
 }
 
-variavariable "app_instrumentation_key" {
+variable "app_instrumentation_key" {
   description = "The Instrumentation Key"
   type        = string
 }
