@@ -1,0 +1,115 @@
+trigger:
+- none
+
+variables:
+- group: TF_Version
+- group: TF_Azure_State
+- group: RND_Prod
+
+stages:
+- stage: TFStorageAcc
+  jobs:
+  - job: TF
+    pool:
+     vmImage: ubuntu-latest
+    steps:
+      - task: PowerShell@2
+        displayName: 'AssignVarsValue'
+        inputs:
+          filePath: '$(System.DefaultWorkingDirectory)/scripts/CreateVar.ps1'
+          arguments: '$(System.DefaultWorkingDirectory)/projects/common/project.tfvars'
+      - task: AzureCLI@2
+        inputs:
+          azureSubscription: '$(ConnectionName)'
+          scriptType: 'pscore'
+          scriptLocation: 'inlineScript'
+          inlineScript: |
+            # Create a Resource Group
+            az group create --name $(TF_Resource_Group) --location $(TF_Project_Location) --tags Project=$(TF_Project_Name)
+            
+            # Create a Storage Account
+            az storage account create --name $(TF_Storage_Account) --resource-group $(TF_Resource_Group) --location $(TF_Project_Location) --sku Standard_LRS --encryption-services blob --allow-blob-public-access false --tags CreatedBy=Pipeline
+                            
+            # Get Storage Account Key
+            $ACCOUNT_KEY = $(az storage account keys list --resource-group $(TF_Resource_Group) --account-name $(TF_Storage_Account) --query [0].value -o tsv)
+                            
+            # Create a Container in the Storage Account
+            az storage container create --account-key $ACCOUNT_KEY --account-name $(TF_Storage_Account) --name $(TF_Container_Name)
+    
+- stage: CommonTF
+  jobs:
+  - job: Common
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: PowerShell@2
+      displayName: 'AssignVarsValue'
+      inputs:
+        filePath: '$(System.DefaultWorkingDirectory)/scripts/CreateVar.ps1'
+        arguments: '$(System.DefaultWorkingDirectory)/projects/common/project.tfvars'
+    - task: TerraformInstaller@0
+      displayName: 'Install Terraform'
+      inputs:
+       terraformVersion: '$(TF_Version)'
+    
+    - task: replacetokens@3
+      displayName: 'ReplaceAzRMVersion'
+      inputs:
+        rootDirectory: '$(System.DefaultWorkingDirectory)/projects/common'
+        targetFiles: '**/provider.tf'
+        encoding: 'auto'
+        writeBOM: true
+        actionOnMissing: 'warn'
+        keepToken: false
+        tokenPrefix: '__'
+        tokenSuffix: '__'
+        useLegacyPattern: false
+        defaultValue: '$(TF_AzureRMVersion)'
+        enableTransforms: false
+        enableTelemetry: true
+    
+    - task: replacetokens@3
+      displayName: 'ReplaceTokenValue'
+      inputs:
+        rootDirectory: '$(System.DefaultWorkingDirectory)/projects/common'
+        targetFiles: '**/main.tf'
+        encoding: 'auto'
+        writeBOM: true
+        actionOnMissing: 'warn'
+        keepToken: false
+        tokenPrefix: '__'
+        tokenSuffix: '__'
+        useLegacyPattern: false
+        defaultValue: '$(System.AccessToken)'
+        enableTransforms: false
+        enableTelemetry: true
+
+    - task: TerraformTaskV2@2
+      displayName: 'Init'
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        workingDirectory: '$(MainPath)'
+        backendServiceArm: '$(ConnectionName)'
+        backendAzureRmResourceGroupName: '$(TF_Resource_Group)'
+        backendAzureRmStorageAccountName: '$(TF_Storage_Account)'
+        backendAzureRmContainerName: '$(TF_Container_Name)'
+        backendAzureRmKey: '$(TF_State_File_Name)'
+        
+    - task: TerraformTaskV2@2
+      displayName: 'Plan'
+      inputs:
+        provider: 'azurerm'
+        command: 'plan'
+        workingDirectory: '$(MainPath)'
+        commandOptions: '--var-file $(VariablePath) -var="client_secret=$(client_secret)"  -lock=false -no-color'
+        environmentServiceNameAzureRM: '$(ConnectionName)'
+    
+    - task: TerraformTaskV2@2
+      displayName: 'Apply'
+      inputs:
+        provider: 'azurerm'
+        command: 'apply'
+        workingDirectory: '$(MainPath)'
+        commandOptions: '--var-file $(VariablePath) -var="client_secret=$(client_secret)"  -lock=false -no-color'
+        environmentServiceNameAzureRM: '$(ConnectionName)'
