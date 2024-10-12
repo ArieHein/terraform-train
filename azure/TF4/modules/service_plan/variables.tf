@@ -32,6 +32,6 @@ variable "plan_worker_count" {
 }
 
 variable "plan_tags" {
-  description = "The Service Plan Resource Tags"
+  description = "The Service Plan Tags"
   type        = map(string)
 }
