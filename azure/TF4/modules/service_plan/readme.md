@@ -11,7 +11,7 @@ This module expects the following parameters:
 | Parameter | Description |
 |---|---|
 | plan_resource_group | The Name of the Resource Group |
-| plan_location | The Location of the Resource Group |
+| plan_location | The Location of the Service Plan |
 | plan_name | The Name of the Service Plan resource |
 | plan_os_type | The Type of the Service Plan |
 | plan_sku_name | The SKU of the Service Plan |
