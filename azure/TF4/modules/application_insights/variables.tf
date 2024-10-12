@@ -1,29 +1,31 @@
-variable "ais_project_prefix" {
-  description = "The Project Prefix"
-  type        = string
-}
-
-variable "ais_project_location_prefix" {
-  description = "The Project Location Prefix"
-  type        = string
-}
-
-variable "ais_environment_prefix" {
-  description = "The Environment Prefix"
+# General Variables
+variable "ais_resource_group" {
+  description = "The Application Insights Resource Group"
   type        = string
 }
 
 variable "ais_location" {
-  description = "The Project Location"
+  description = "The Application Insights Location"
   type        = string
 }
 
-variable "ais_resource_group" {
-  description = "The Resource Group"
+# Application Insights Variables
+variable "ais_name" {
+  description = "The Application Insights Name"
+  type        = string
+}
+
+variable "ais_type" {
+  description = "The Application Insights Type"
+  type        = string
+}
+
+variable "ais_sku" {
+  description = "The Application Insights SKU"
   type        = string
 }
 
 variable "ais_tags" {
-  description = "The Resource Tags"
+  description = "The Application Insights Tags"
   type        = map(string)
 }
