@@ -1,6 +1,6 @@
 # TF4
 
-***Note: If you try to run terraform in this folder, it will error out as terraform will try to run both *.tf files. Rename one of the files or remove it to avoid errors***
+***Note: If you try to run Terraform in this folder, it will error out as Terraform will try to run both *.tf files. Rename one of the files or remove it to avoid errors***
 
 ## Overview
 
@@ -13,15 +13,15 @@ Early design for Organization scope.
 
 ## General
 
-This chapter is split into two parts. Part one will discuss the concept of Terraform **Modules**, and the second will discuss a logical layer of abstraction that I refer to as **Components** or **Stacks**. This is not a Terraform concept but as the power of modules becomes more understandable, we will try and scale it up to organization levels together with the following chapter.
+This chapter is split into two parts. Part one will discuss the concept of Terraform **Modules**, and the second will discuss a logical layer of abstraction that I refer to as **Components** or **Stacks**. These are the names i choose to use and are not a Terraform concept (do not mix this with Stacks that Hashicorp offers now as part of their cloud service). As the power of modules becomes more understandable, we will try and scale it up to organization levels together with the following chapter.
 
-The most immediate visible change is that all parts of a terraform script have now been split into their own files, thus separating content that is unlikely to ever change and content that changes more frequently. Since Terraform scans all files in the folder upon execution, we can have as many terraform files as we want, in whatever directory structure, allowing us to design our folder structure and implement some **separation of concerns** where different teams are responsible for different resources or modules.
+The most immediate visible change is that all parts of a Terraform script have now been split into their own files, thus separating content that is unlikely to ever change and content that changes more frequently. Since Terraform scans all files in the folder upon execution, we can have as many Terraform files as we want, in whatever directory structure, allowing us to design our folder structure and implement some **separation of concerns** where different teams are responsible for different resources or modules.
 
-In the root of the project, we see a file called **project.tfvars**. This file holds global variable values that we want to use throughout the execution of the terraform script, no matter for what environment. In it we find variables like the **Project Name** that we will use in tags, **Project Location** that we will use to create the resources so they are all in the same region, and some prefixes that will allow us to create resource names that are more unique.
+In the root of the project, we see a file called **project.tfvars**. This file holds global variable values that we want to use throughout the execution of the Terraform script, no matter for what environment. In it we find variables like the **Project Name** that we will use in tags, **Project Location** that we will use to create the resources so they are all in the same region, and some prefixes that will allow us to create resource names that are more unique.
 
-In main.0.tf file, is where we also see for the first time the usage of **Locals**. These are variables that are scoped to the specific terraform file. We can see one usage of this, where I create two variables to hold tags that we will use later. It is a good practice to have some tags for each Resource Group / Resource to allow better visibility in terms of cost.
+In main.0.tf file, is where we also see for the first time the usage of **Locals**. These are variables that are scoped to the specific Terraform file. We can see one usage of this, where I create two variables to hold tags that we will use later. It is a good practice to have some tags for each Resource Group / Resource to allow better visibility in terms of cost.
 
-```terraform
+```Terraform
 locals {
   resource_group_tags = {
     Project = var.project_name
@@ -37,9 +37,9 @@ We can see that the values of these tags are also environment dependent.
 
 This is where we see another aspect of IaC and that is the ability to create the same infrastructure constructs for all of our environments. Yes, some configuration of resources might be different in terms of capacity or SKU but the more we trust that our environments are an exact copy, it becomes much easier to debug or have behavior expectations of the code as its being deployed to different environments.
 
-For this purpose, we have a folder called **environments**, in it you would find a *.tfvar file for each environment, in our example we have a Development, QA and Production environments. You can see that all files have the exact same structure with same keys, but sometimes different values and this is exactly what we want. We want to have the same exact resources, but still have the ability to choose bigger / stronger resources for production but simpler ones in non-production that will cost less.
+For this purpose, we have a folder called **environments**, in it you would find a *.tfvars file for each environment, in our example we have a Development, QA and Production environments. You can see that all files have the exact same structure with same keys, but sometimes different values and this is exactly what we want. We want to have the same exact resources, but still have the ability to choose bigger / stronger resources for production but simpler ones in non-production that will cost less.
 
-```terraform
+```Terraform
 # Environment
 environment_name   = "Development"
 environment_prefix = "dev"
@@ -57,11 +57,11 @@ As we have seen in past chapters, all variables used need to be declared and thu
 
 Back to our main file, we see in the Resource Group provisioning, that this time we are using the environment prefix in the resource naming, and we are also adding the location prefix to, adding to the overall uniqueness of the resource name.
 
-```terraform
+```Terraform
 name     = "${var.project_prefix}-${var.project_location_prefix}-${var.environment_prefix}-rg"
 ```
 
-For the dev environment, terraform will evaluate this to be:
+For the dev environment, Terraform will evaluate this to be:
 
 ```terraform
 tftrain-eun-dev-rg
@@ -97,11 +97,11 @@ resource "azurerm_key_vault" "kv" {
   tenant_id                = var.kv_tenant_id
 ```
 
-***Note:*** In the main.tf of a module folder, at the top you need to declare the version of terraform required for the module.
+***Note:*** In the main.tf of a module folder, at the top you need to declare the version of Terraform required for the module.
 
 ```terraform
 terraform {
-  required_version = "=1.3.3"
+  required_version = "=1.9.7"
 }
 ```
 
@@ -154,7 +154,7 @@ Thus, allowing us to use a different environment file on each execution. This is
 
 We added support to environments, we have split the resources to modules and we have seen how to use local scoped variables and how to use the output of scripts as input for other modules.
 
-It is essential that you familiarize yourselves with Terraform Modules and how it simplifies reusability and more organized way to write terraform scripts, especially at scale. To read a great deal more about modules, view: <https://developer.hashicorp.com/terraform/language/modules>
+It is essential that you familiarize yourselves with Terraform Modules and how it simplifies reusability and more organized way to write Terraform scripts, especially at scale. To read a great deal more about modules, view: <https://developer.hashicorp.com/terraform/language/modules>
 
 One aspect that is slightly more advanced is stacks / components. As mentioned at the start, these are not Terraform concepts, rather a potential layer of abstraction we can create on top of what we learned earlier.
 
