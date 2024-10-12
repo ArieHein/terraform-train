@@ -4,13 +4,11 @@ terraform {
 
 # Provision a KeyVault
 resource "azurerm_key_vault" "kv" {
-  name                     = "${var.kv_project_prefix}-${var.kv_project_location_prefix}-${var.kv_environment_prefix}-kv"
-  location                 = var.kv_location
+  name                     = var.kv_name
   resource_group_name      = var.kv_resource_group
+  location                 = var.kv_location
   tenant_id                = var.kv_tenant_id
-  purge_protection_enabled = false
-  enabled_for_deployment   = true
-  sku_name                 = "standard"
+  sku_name                 = var.kv_sku_name
 
   access_policy {
     tenant_id = var.kv_tenant_id
@@ -21,6 +19,9 @@ resource "azurerm_key_vault" "kv" {
       "set",
       "list"
     ]
+
+    key_permissions = []
+    certificate_permissions = []
   }
 
   network_acls {

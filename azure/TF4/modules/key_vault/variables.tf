@@ -1,39 +1,37 @@
-variable "kv_project_prefix" {
-  description = "The Project Prefix"
-  type        = string
-}
-
-variable "kv_project_location_prefix" {
-  description = "The Project Location Prefix"
-  type        = string
-}
-
-variable "kv_environment_prefix" {
-  description = "The Environment Prefix"
+# General Variables
+variable "kv_resource_group" {
+  description = "The KeyVault Resource Group"
   type        = string
 }
 
 variable "kv_location" {
-  description = "The Project Location"
+  description = "The KeyVault Location"
   type        = string
 }
 
-variable "kv_resource_group" {
-  description = "The Resource Group"
+# Key Vault Variables
+variable "kv_name" {
+  description = "The Keyvault Name"
   type        = string
 }
 
 variable "kv_tenant_id" {
-  description = "The Tenant ID"
-  type = string
-}
-
-variable "kv_object_id" {
-  description = "The Object ID"
+  description = "The KeyVault Tenant ID"
   type        = string
 }
 
+variable "kv_object_id" {
+  description = "The KeyVault Object ID"
+  type        = string
+}
+
+variable "kv_sku_name" {
+  description = "The KeyVault SKU Name. Values are: Standard, Premium"
+  type        = string
+  default     = "Standard"
+}
+
 variable "kv_tags" {
-  description = "The Resource Tags"
+  description = "The KeyVault Tags"
   type        = map(string)
 }
