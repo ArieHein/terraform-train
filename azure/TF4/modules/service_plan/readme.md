@@ -28,4 +28,4 @@ This module exposes the following outputs:
 
 ## Additional information
 
-Additional information can be found at [Terraform Registry - AzureRM Provider - Service Plan](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/application_insights)
+Additional information can be found at [Terraform Registry - AzureRM Provider - Service Plan](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/service_plan)
