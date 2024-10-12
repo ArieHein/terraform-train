@@ -4,9 +4,9 @@ terraform {
 
 # Provision a Service Plan
 resource "azurerm_service_plan" "plan" {
-  name                = "${var.plan_project_prefix}-${var.plan_project_location_prefix}-${var.plan_environment_prefix}-plan"
-  location            = var.plan_location
+  name                = "${var.plan_name}-plan"
   resource_group_name = var.plan_resource_group
+  location            = var.plan_location
   os_type             = var.plan_os_type
   sku_name            = var.plan_sku_name
   worker_count        = var.plan_worker_count

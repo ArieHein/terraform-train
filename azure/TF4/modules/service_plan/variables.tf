@@ -1,30 +1,22 @@
-variable "plan_project_prefix" {
-  description = "The Project Prefix"
-  type        = string
-}
-
-variable "plan_project_location_prefix" {
-  description = "The Project Location Prefix"
-  type        = string
-}
-
-variable "plan_environment_prefix" {
-  description = "The Environment Prefix"
+# General Variables
+variable "plan_resource_group" {
+  description = "The Service Plan Resource Group"
   type        = string
 }
 
 variable "plan_location" {
-  description = "The Project Location"
+  description = "The Service Plan Location"
   type        = string
 }
 
-variable "plan_resource_group" {
-  description = "The Resource Group"
+# Service Plan Variables
+variable "plan_name" {
+  description = "The Service Plan Name"
   type        = string
 }
 
 variable "plan_os_type" {
-  description = "The Service Plan OS Name"
+  description = "The Service Plan OS Type"
   type        = string
 }
 
@@ -34,11 +26,12 @@ variable "plan_sku_name" {
 }
 
 variable "plan_worker_count" {
-  description = "Service Plan Worker Count"
+  description = "The Service Plan Worker Count"
   type        = number
+  default     = 1
 }
 
 variable "plan_tags" {
-  description = "The Resource Tags"
+  description = "The Service Plan Resource Tags"
   type        = map(string)
 }
