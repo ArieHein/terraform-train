@@ -3,7 +3,7 @@ terraform {
 }
 
 resource "azurerm_sql_server" "mssql" {
-  name                         = "${var.sql_project_prefix}-${var.sql_project_location}-${var.sql_environment_prefix}-sql"
+  name                         = "${var.sql_name}-sql"
   location                     = var.sql_location
   resource_group_name          = var.sql_resource_group
   version                      = "12.0"
