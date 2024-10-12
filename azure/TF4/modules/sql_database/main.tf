@@ -3,7 +3,7 @@ terraform {
 }
 
 resource "azurerm_sql_database" "mssqldb" {
-  name                = "${var.db_project_prefix}-${var.db_project_location_prefix}-${var.db_environment_prefix}-sqldb"
+  name                = "${var.db_name}-sqldb"
   location            = var.db_location
   resource_group_name = var.db_resource_group
   server_name         = var.db_sql_server_id
