@@ -3,17 +3,17 @@
 ## Overview
 
 This module creates one instance of Application Insights resource in Azure.
-This is a Workspace mode of Application Insights, using log analytics wworkspace.
+This is a Workspace mode of Application Insights, using log analytics workspace.
 
 ## Input Parameters
 
-This module expects the following parameters for Application Inisghts:
+This module expects the following parameters for Application Insights:
 
 | Parameter | Description |
 |-|-|
 | rg_name | The Name of the Resource Group. |
 | rg_location | The Location of the Resource Group. |
-| appi_name | The Name of the Application Insigts resource. |
+| appi_name | The Name of the Application Insights resource. |
 | appi_type | The Type of the Application Insights. Default value: web. |
 | appi_tags | The Tags to add to the resource. |
 
