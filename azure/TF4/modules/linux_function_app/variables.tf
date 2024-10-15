@@ -30,11 +30,6 @@ variable "func_sta_access_key" {
   type        = string 
 }
 
-variable "func_os_type" {
-  description = "The Function App OS Type"
-  type        = string
-}
-
 variable "func_tags" {
   description = "The Function App Tags"
   type        = map(string)
